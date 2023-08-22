@@ -3,7 +3,6 @@
 fn main() {
     p1();
     p2();
-    p_additonal();
 }
 
 fn p1() {
@@ -55,8 +54,4 @@ fn sqrt(value: i32) -> i32 {
         }
     }
     return left;
-}
-
-fn p_additonal() {
-    println!("Benchmarking...")
 }
