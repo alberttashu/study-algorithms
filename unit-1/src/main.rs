@@ -33,7 +33,28 @@ fn find_insert_position(nums: Vec<i32>, target: i32) -> i32 {
 }
 
 fn p2() {
-    println!("Calculating sqrt...")
+    println!("Calculating sqrt...");
+    let x = 1230000;
+    let sqrt = sqrt(x);
+    println!("Sqrt({x}) = {sqrt}")
+}
+
+fn sqrt(value: i32) -> i32 {
+    let mut left = 0;
+    let mut right = value;
+
+    while left <= (right - 1) {
+        let mut candidate = left + (right - left + 1) / 2;
+        let x = candidate as i64 * candidate as i64;
+        if x == value as i64 {
+            return candidate;
+        } else if x < value as i64 {
+            left = candidate;
+        } else {
+            right = candidate - 1;
+        }
+    }
+    return left;
 }
 
 fn p_additonal() {
