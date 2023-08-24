@@ -1,5 +1,5 @@
 use benchmarking::sorting::bubble_sort;
-use criterion::Criterion;
+use criterion::{black_box, BenchmarkId, Criterion};
 use rand::Rng;
 use std::boxed::Box;
 
@@ -8,8 +8,11 @@ fn bubble_sort_benchmark(c: &mut Criterion) {
     let sizes = [10, 100, 1_000, 10_000, 100_000];
     for array_size in sizes {
         let mut array = generate_random_array(array_size);
-        let name = format!("bubble_sort algorithm {}", array_size);
-        group.bench_function(name.as_str(), |b| b.iter(|| bubble_sort(&mut array)));
+        group.bench_with_input(
+            BenchmarkId::new("bubble_sort algorithm", array_size),
+            &array_size,
+            |b, &_size| b.iter(|| bubble_sort(black_box(&mut array))),
+        );
     }
     group.finish();
 }
