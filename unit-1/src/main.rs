@@ -33,25 +33,25 @@ fn find_insert_position(nums: Vec<i32>, target: i32) -> i32 {
 
 fn p2() {
     println!("Calculating sqrt...");
-    let x = 1230000;
+    let x = 2147483647;
     let sqrt = sqrt(x);
     println!("Sqrt({x}) = {sqrt}")
 }
 
 fn sqrt(value: i32) -> i32 {
-    let mut left = 0;
-    let mut right = value;
+    let mut left: i64 = 0;
+    let mut right: i64 = value as i64;
 
     while left <= (right - 1) {
         let mut candidate = left + (right - left + 1) / 2;
-        let x = candidate as i64 * candidate as i64;
+        let x = candidate * candidate;
         if x == value as i64 {
-            return candidate;
+            return candidate as i32;
         } else if x < value as i64 {
             left = candidate;
         } else {
             right = candidate - 1;
         }
     }
-    return left;
+    return left as i32;
 }
