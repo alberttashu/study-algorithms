@@ -42,12 +42,12 @@ fn sqrt(value: i32) -> i32 {
     let mut left: i64 = 0;
     let mut right: i64 = value as i64;
 
-    while left <= (right - 1) {
+    while left < right {
         let mut candidate = left + (right - left + 1) / 2;
-        let x = candidate * candidate;
-        if x == value as i64 {
+        let sqrt = value as i64 / candidate;
+        if sqrt == candidate {
             return candidate as i32;
-        } else if x < value as i64 {
+        } else if sqrt > candidate as i64 {
             left = candidate;
         } else {
             right = candidate - 1;
