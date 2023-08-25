@@ -1,6 +1,10 @@
-public class Solution {
-    public int MySqrt(int x) {
-        
+namespace unit_1;
+
+public class Solution1
+{
+    public int MySqrt(int x)
+    {
+
         if (x <= 1)
         {
             return x;
@@ -11,7 +15,7 @@ public class Solution {
 
         while (left <= right)
         {
-            var mid = left + (right - left)/2;
+            var mid = left + (right - left) / 2;
             var sqrt = x / mid;
 
             if (sqrt == mid)
@@ -26,7 +30,7 @@ public class Solution {
 
             else
             {
-                left = mid +1;
+                left = mid + 1;
             }
 
         }
