@@ -37,7 +37,7 @@ mod singly_linked_list {
             self.head.as_ref().map(|node| &node.value)
         }
 
-        pub fn count(&self) -> i32 {
+        pub fn count(&self) -> usize {
             let mut count = 0;
             let mut current = &self.head;
             while !current.is_none() {
@@ -45,6 +45,48 @@ mod singly_linked_list {
                 current = &current.as_ref().unwrap().next;
             }
             count
+        }
+
+        // it created borrow when executed, so better to use a version with cloning here
+        // pub fn to_array(&self) -> Vec<&T> {
+        //     let mut result = Vec::new();
+        //     let mut current = &self.head;
+        //
+        //     while let Some(node) = current {
+        //         result.push(&node.value);
+        //         current = &node.next;
+        //     }
+        //
+        //     result
+        // }
+
+        pub fn to_array(&self) -> Vec<T>
+        where
+            T: Clone, // Ensure T implements Clone
+        {
+            let mut result = Vec::new();
+            let mut current = &self.head;
+
+            while let Some(node) = current {
+                result.push(node.value.clone()); // Clone each element
+                current = &node.next;
+            }
+
+            result
+        }
+
+        pub fn reverse(&mut self) {
+            let mut prev = None;
+            let mut current = self.head.take();
+
+            while let Some(mut node) = current.take() {
+                let next = node.next.take();
+                node.next = prev.take();
+                prev = Some(node);
+                current = next;
+            }
+
+            self.head = prev;
         }
     }
 }
@@ -54,7 +96,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn it_works() {
+    fn set_up_list_with_items_should_return_proper_count() {
         let mut list: singly_linked_list::LinkedList<i32> = singly_linked_list::LinkedList::new();
 
         list.push(1);
@@ -66,5 +108,23 @@ mod tests {
         let count = list.count();
 
         assert_eq!(count, 5);
+    }
+
+    #[test]
+    fn reserve_should_reverse_list() {
+        let mut list = singly_linked_list::LinkedList::new();
+
+        list.push(1);
+        list.push(2);
+        list.push(3);
+        list.push(4);
+
+        let initial = list.to_array();
+
+        list.reverse();
+
+        let reversed = list.to_array();
+
+        assert_eq!(reversed, initial.iter().rev().copied().collect::<Vec<_>>())
     }
 }
