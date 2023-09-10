@@ -1,3 +1,5 @@
+mod leet_code_linked_list;
+
 #[allow(dead_code)]
 struct Queue<T> {
     items: Vec<T>,
@@ -76,6 +78,22 @@ pub fn add(left: usize, right: usize) -> usize {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_leet_code() {
+        let head = leet_code_linked_list::create_list(10);
+        let mut curr = head;
+        println!("TEST RUN -- ");
+        loop {
+            match curr {
+                Some(n) => {
+                    println!("{:?}", *n);
+                    curr = (*n).next;
+                }
+                None => break,
+            }
+        }
+    }
 
     #[test]
     fn it_works() {
