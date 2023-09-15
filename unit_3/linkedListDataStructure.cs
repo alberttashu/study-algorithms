@@ -38,6 +38,10 @@ public class linkedListDataStructure
 
     // peek() -> T;
     // Returns the last item (element) in the linked list without removing it.
+    public T peak()
+    {
+
+    }
 
 
     // prepend(item: T) -> void;
@@ -81,6 +85,26 @@ public class linkedListDataStructure
 
     // contains(item: T) -> bool;
     // Checks if the linked list contains the specified item.
+    public bool contains(T item)
+    {
+        if (Length == 0)
+        {
+            return false;
+        }
+
+        Node<T> current = Head;
+
+        while (current != null)
+        {
+            if (EqualityComparer<T>.Default.Equals(current.data, item))
+            {
+                return true;
+            }
+            current = current.next;
+        }
+
+        return false;
+    }
 
 
     // index_of(item: T) -> int;
